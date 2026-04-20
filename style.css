@@ -239,18 +239,27 @@ em { font-style: italic; }
 
 a {
   color: inherit;
-  text-decoration: none;
-  background-image: linear-gradient(var(--rule), var(--rule));
-  background-repeat: no-repeat;
-  background-size: 100% 1px;
-  background-position: 0 92%;
-  transition: background-size 200ms ease, color 200ms ease;
+  text-decoration: underline;
+  text-decoration-color: var(--ink-soft);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-skip-ink: auto;
+  transition:
+    color 180ms ease,
+    text-decoration-color 180ms ease,
+    text-decoration-thickness 180ms ease;
 }
 
 a:hover {
   color: var(--accent);
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-size: 100% 1.5px;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1.5px;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 /* ---------- Colophon ---------- */
@@ -287,5 +296,5 @@ a:hover {
 /* ---------- Reduce motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  a { transition: none; }
+  *, *::before, *::after { transition: none !important; }
 }

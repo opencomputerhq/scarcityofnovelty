@@ -5,6 +5,8 @@
 **Scope:** `index.html`, `style.css`, `favicon.svg` at commit `ad28792`.
 **Verdict:** 17 / 20 — Good. Address weak dimensions before shipping.
 
+**Status (2026-04-20):** All P1 and required-P2 items addressed across `/typeset` (commit `1f36384`) and `/polish` (this commit). Remaining open items are P3 / optional.
+
 ---
 
 ## Score
@@ -29,32 +31,27 @@ The one soft tell is the typeface. EB Garamond is not on impeccable's reflex-rej
 
 Execute in this order. Re-run `/audit` after each major pass.
 
-### 1 — Typography pass (`/typeset`)
+### 1 — Typography pass (`/typeset`) — ✓ done (`1f36384`)
 
 Addresses P1 numeral contrast, P2 single-family typography, P2 reflex font, P2 unused weights, P3 `::first-line` unpredictability. Roughly one round of work, because every item sits in the typography stack.
 
-- **[P2] Swap EB Garamond for a more distinctive body face.**
-  Recommended: **Vollkorn** (warm German workhorse, designed for on-screen reading). Alternatives: Libre Caslon Text, Old Standard TT, Cardo.
-  Location: `style.css:45`, `index.html:22`.
-- **[P2] Introduce a second typeface for display / accents.**
-  Pair the new body face with a distinctive display face for the title (or for the dateline + byline + numerals). Impeccable: *"DO NOT use only one font family for the entire page."*
-- **[P2] Prune loaded font weights.**
-  Current URL loads weights 400 / 500 / 600 + italic 400 / 500. Only roman 400 and italic 400 are in use after the lightening pass. Trim to the minimum set.
-  Location: `index.html:22`.
-- **[P3] Fix `.after-dropcap::first-line` small-caps.**
-  `::first-line` tracks the rendered first line, which varies with viewport — "first N words in small caps" becomes unpredictable. Either wrap the first 2–3 words in a `<span class="opening">` with explicit small-caps, or drop the effect; the drop cap alone carries the classical signal.
-  Location: `style.css:204-207`.
+- **✓ [P2] Swap EB Garamond for a more distinctive body face.**
+  Picked **Alegreya** instead of the suggested Vollkorn — designed explicitly for long-form literature (Tipos Latinos 2012 Best of Shows), more character in italic, full small-caps + old-style numerals.
+- **✓ [P2] Introduce a second typeface for display / accents.**
+  **Alegreya Sans** (matched-by-design pairing) used on dateline, byline name, section numerals.
+- **✓ [P2] Prune loaded font weights.**
+  Google Fonts URL trimmed from 5 files to 4 (only roman 400 and italic 400 of each family).
+- **✓ [P3] Fix `.after-dropcap::first-line` small-caps.**
+  Replaced with explicit `<span class="opening">It's only natural</span>` — deterministic across viewports.
 
-### 2 — Contrast + focus polish (`/polish`)
+### 2 — Contrast + focus polish (`/polish`) — ✓ done (this commit)
 
-- **[P1] Raise section-numeral contrast to WCAG AA.**
-  `.numeral` uses `--ink-faint` (~2.45 : 1 light, ~3.0 : 1 dark). Section numerals are meaningful text and must pass 4.5 : 1. Promote to `--ink-soft` (~5.5 : 1), or darken `--ink-faint` toward `--ink-soft` globally and keep only `.ornament` / `.endmark` at the faint tone (those are `aria-hidden` decoration and can stay muted).
-  Location: `style.css:157-165`, rendered at `index.html:23, 55`.
-- **[P2] Strengthen link underline and add `:focus-visible`.**
-  Static link underline uses `--rule` (~1.64 : 1 vs paper) — at the low edge of detectability. Also, no custom focus ring — keyboard focus falls back to browser default, which breaks the aesthetic.
-  Location: `style.css:243-251`.
+- **✓ [P1] Raise section-numeral contrast to WCAG AA.**
+  Folded into the `/typeset` pass — `.numeral` promoted to `--ink-soft` (~5.5 : 1, well above the 4.5 : 1 minimum) when its font-family was reassigned.
+- **✓ [P2] Strengthen link underline and add `:focus-visible`.**
+  Underline modernised from `background-image` gradient hack to native `text-decoration` properties; colour bumped from `--rule` (~1.64 : 1) to `--ink-soft` (~5.5 : 1 light, ~6.7 : 1 dark) — comfortably above the 3 : 1 WCAG minimum for non-text UI. New `a:focus-visible` rule applies a 2px accent-coloured outline with 4px offset, replacing the browser-default blue ring that clashed with the warm palette. `prefers-reduced-motion` rule strengthened from links-only to global.
 
-### 3 — Optional P3s
+### 3 — Optional P3s — open
 
 - **Gradient paper-texture on `body::before`.** Intentional, restrained, defensible as texture rather than effect. Some reviewers would flag it. Keep or swap to a flat `--paper-2` overlay.
   Location: `style.css:62-72`.
