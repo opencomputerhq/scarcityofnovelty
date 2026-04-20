@@ -3,25 +3,420 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>The Scarcity of Novelty &middot; Igor Zalutski</title>
   <meta name="description" content="An essay on what AI&rsquo;s abundance makes scarce, and why proof of human authorship is becoming the valuable thing.">
   <meta name="author" content="Igor Zalutski">
   <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f6f1e6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161310" media="(prefers-color-scheme: dark)">
+
+  <link rel="canonical" href="https://diggerhq.github.io/scarcityofnovelty/">
 
   <meta property="og:title" content="The Scarcity of Novelty">
   <meta property="og:description" content="An essay on what AI&rsquo;s abundance makes scarce, and why proof of human authorship is becoming the valuable thing.">
   <meta property="og:type" content="article">
+  <meta property="og:url" content="https://diggerhq.github.io/scarcityofnovelty/">
   <meta property="article:author" content="Igor Zalutski">
+  <meta property="article:published_time" content="2026-04-20">
 
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="The Scarcity of Novelty">
   <meta name="twitter:description" content="An essay on what AI&rsquo;s abundance makes scarce.">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;1,400&family=Alegreya+Sans:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="preload" href="fonts/alegreya-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/alegreya-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <style>
+    /* ---------------------------------------------------------------
+       The Scarcity of Novelty
+       Body: Alegreya. Chrome (dateline, byline, numerals): Alegreya Sans.
+       Fonts self-hosted; fallback @font-face blocks carry size-adjust
+       and ascent/descent overrides so the fallback glyphs occupy the
+       exact same space as the web fonts (zero CLS on font swap).
+       --------------------------------------------------------------- */
+
+    /* ----- Self-hosted Alegreya (serif body) ----- */
+
+    @font-face {
+      font-family: "Alegreya";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("fonts/alegreya-regular.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Alegreya";
+      font-style: italic;
+      font-weight: 400;
+      font-display: swap;
+      src: url("fonts/alegreya-italic.woff2") format("woff2");
+    }
+
+    /* ----- Self-hosted Alegreya Sans (sans chrome) ----- */
+
+    @font-face {
+      font-family: "Alegreya Sans";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("fonts/alegreya-sans-regular.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Alegreya Sans";
+      font-style: italic;
+      font-weight: 400;
+      font-display: swap;
+      src: url("fonts/alegreya-sans-italic.woff2") format("woff2");
+    }
+
+    /* ----- Metric-matched fallbacks -----
+       Overrides computed from the woff2 files via fontkit against
+       Georgia / Helvetica Neue metrics. While Alegreya loads, these
+       fallbacks render Georgia at exactly Alegreya's effective size,
+       so the swap is visually invisible. */
+
+    @font-face {
+      font-family: "Alegreya Fallback";
+      font-style: normal;
+      src: local("Georgia");
+      size-adjust: 92.81%;
+      ascent-override: 109.48%;
+      descent-override: 37.17%;
+      line-gap-override: 0%;
+    }
+    @font-face {
+      font-family: "Alegreya Fallback";
+      font-style: italic;
+      src: local("Georgia Italic"), local("Georgia");
+      size-adjust: 92.81%;
+      ascent-override: 109.48%;
+      descent-override: 37.17%;
+      line-gap-override: 0%;
+    }
+
+    @font-face {
+      font-family: "Alegreya Sans Fallback";
+      font-style: normal;
+      src: local("Helvetica Neue"), local("Arial");
+      size-adjust: 93.17%;
+      ascent-override: 96.60%;
+      descent-override: 32.20%;
+      line-gap-override: 0%;
+    }
+    @font-face {
+      font-family: "Alegreya Sans Fallback";
+      font-style: italic;
+      src: local("Helvetica Neue Italic"), local("Helvetica Neue"), local("Arial Italic"), local("Arial");
+      size-adjust: 93.17%;
+      ascent-override: 96.60%;
+      descent-override: 32.20%;
+      line-gap-override: 0%;
+    }
+
+    /* ----- Tokens ----- */
+
+    :root {
+      --paper:      #f6f1e6;
+      --paper-2:    #ede5d3;
+      --ink:        #1c1812;
+      --ink-soft:   #6a5d4c;
+      --ink-faint:  #a89678;
+      --rule:       #cbb999;
+      --accent:     #8a3a2a;
+      --selection:  #e8d8b4;
+
+      --font-serif: "Alegreya", "Alegreya Fallback", Georgia, serif;
+      --font-sans:  "Alegreya Sans", "Alegreya Sans Fallback", "Helvetica Neue", Arial, sans-serif;
+
+      --measure:    40rem;
+      --leading:    1.6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper:      #161310;
+        --paper-2:    #1f1b16;
+        --ink:        #ebe1cd;
+        --ink-soft:   #a89880;
+        --ink-faint:  #6e6248;
+        --rule:       #463c2e;
+        --accent:     #d6917f;
+        --selection:  #3a2f22;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+
+      font-family: var(--font-serif);
+      font-size: clamp(1.1rem, 0.95rem + 0.45vw, 1.3rem);
+      line-height: var(--leading);
+
+      font-feature-settings: "kern" 1, "liga" 1, "dlig" 1, "onum" 1;
+      font-variant-numeric: oldstyle-nums proportional-nums;
+      font-variant-ligatures: common-ligatures contextual;
+
+      text-rendering: optimizeLegibility;
+
+      hanging-punctuation: first last;
+    }
+
+    ::selection { background: var(--selection); color: var(--ink); }
+
+    /* Subtle paper grain — two stacked soft radial gradients. */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(1200px 800px at 20% 10%, var(--paper-2), transparent 60%),
+        radial-gradient(900px 700px at 90% 95%, var(--paper-2), transparent 65%);
+      opacity: 0.55;
+    }
+
+    main { display: flex; justify-content: center; }
+
+    article {
+      width: 100%;
+      max-width: var(--measure);
+      padding: clamp(2.5rem, 6vh, 5.5rem) 1.4rem clamp(3rem, 8vh, 6rem);
+    }
+
+    /* ---------- Masthead ---------- */
+
+    .masthead {
+      text-align: center;
+      margin-bottom: clamp(3rem, 7vh, 5rem);
+    }
+
+    .dateline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7em;
+      margin: 0 0 2.2rem;
+      font-family: var(--font-sans);
+      font-style: normal;
+      font-weight: 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-variant-numeric: lining-nums;
+    }
+
+    .dateline::before,
+    .dateline::after {
+      content: "";
+      flex: 0 1 3em;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    .dateline .bullet { color: var(--ink-faint); }
+
+    .title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(2.4rem, 4vw + 1.1rem, 4rem);
+      line-height: 1.06;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+
+    .byline {
+      margin: 1.8rem 0 0;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      letter-spacing: 0.01em;
+    }
+
+    .byline .name {
+      font-family: var(--font-sans);
+      font-style: normal;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.85em;
+      color: var(--ink);
+    }
+
+    /* ---------- Body ---------- */
+
+    .part > p {
+      margin: 0;
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphenate-limit-chars: 7 4 3;
+    }
+
+    .part > p + p { margin-top: 1.3em; }
+
+    .numeral {
+      margin: 0 0 1.2rem;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-style: normal;
+      font-weight: 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .section-title {
+      margin: 0 0 2rem;
+      text-align: center;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(1.4rem, 1.1rem + 0.6vw, 1.7rem);
+      line-height: 1.25;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+
+    .section-title .numeral {
+      display: block;
+      margin: 0 0 0.9rem;
+    }
+
+    /* ---------- Drop cap & opening ---------- */
+
+    .dropcap {
+      float: left;
+      font-family: var(--font-serif);
+      font-style: normal;
+      font-weight: 400;
+      font-size: 4.4em;
+      line-height: 0.82;
+      margin: 0.06em 0.08em -0.06em 0;
+      color: var(--accent);
+    }
+
+    .opening {
+      font-variant-caps: all-small-caps;
+      letter-spacing: 0.06em;
+      font-feature-settings: "smcp" 1, "c2sc" 1;
+    }
+
+    /* ---------- Ornaments ---------- */
+
+    .ornament {
+      margin: clamp(2.5rem, 5vh, 4rem) 0;
+      text-align: center;
+      font-size: 1.2rem;
+      letter-spacing: 0.6em;
+      color: var(--ink-faint);
+      user-select: none;
+    }
+
+    .endmark {
+      display: inline-block;
+      margin-left: 0.4em;
+      color: var(--ink-faint);
+      font-size: 0.95em;
+      vertical-align: 0.05em;
+    }
+
+    /* ---------- Inline details ---------- */
+
+    em { font-style: italic; }
+    .alpha { font-style: italic; }
+
+    /* ---------- Links ---------- */
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: var(--ink-soft);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+      text-decoration-skip-ink: auto;
+      transition:
+        color 180ms ease,
+        text-decoration-color 180ms ease,
+        text-decoration-thickness 180ms ease;
+    }
+
+    a:hover {
+      color: var(--accent);
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 1.5px;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    /* ---------- Colophon ---------- */
+
+    .colophon { margin-top: 1.3em; }
+    .colophon p { margin: 1.3em 0 0; }
+
+    /* ---------- Small screens ---------- */
+
+    @media (max-width: 32rem) {
+      body { line-height: 1.5; }
+      .dateline { gap: 0.5em; font-size: 0.72rem; }
+      .dateline::before, .dateline::after { flex-basis: 1.5em; }
+      .dropcap { font-size: 3.6em; }
+      article { padding-inline: 1.2rem; }
+    }
+
+    /* ---------- Print ---------- */
+
+    @media print {
+      body { background: white; color: black; }
+      body::before { display: none; }
+      article { max-width: 30em; padding: 0; }
+      a { color: black; text-decoration-color: #666; }
+      .colophon, .ornament, .endmark { color: #555; }
+    }
+
+    /* ---------- Reduce motion ---------- */
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Scarcity of Novelty",
+    "author": {
+      "@type": "Person",
+      "name": "Igor Zalutski",
+      "url": "https://opencomputer.dev"
+    },
+    "datePublished": "2026-04-20",
+    "url": "https://diggerhq.github.io/scarcityofnovelty/",
+    "description": "An essay on what AI's abundance makes scarce, and why proof of human authorship is becoming the valuable thing.",
+    "inLanguage": "en",
+    "isAccessibleForFree": true
+  }
+  </script>
 </head>
 <body>
   <main>
@@ -74,6 +469,7 @@
         <p>I&rsquo;m building <a href="https://opencomputer.dev" rel="noopener">opencomputer.dev</a>&nbsp;&mdash; a sandbox for running AI agents inside&nbsp;it.</p>
 
         <p><a href="https://www.loom.com/share/483786c6856b4552b50569c3374e37d8" rel="noopener">Written by a human</a>.</p>
+
       </footer>
 
     </article>

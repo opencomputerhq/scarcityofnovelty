@@ -1,8 +1,8 @@
 # Plan · performance + share metadata pre-ship
 
 **Date:** 2026-04-20
-**Status:** planned, not yet executed.
-**Scope:** `index.html`, `style.css`, new `fonts/` directory, new `og.png`.
+**Status:** executed (this commit), minus the OG image (deferred — no visual yet).
+**Scope:** `index.html`, `style.css` (deleted), new `fonts/` directory.
 **Goal:** fastest possible first-paint for first-time visitors; clean previews when shared on X / LinkedIn / Slack; clean signals to search crawlers.
 
 ---
@@ -70,14 +70,16 @@ Three independent metadata additions:
 
 ## Order of operations
 
-1. Download four woff2 files from the Google Fonts repo (Alegreya regular + italic, Alegreya Sans regular + italic). Place in `/fonts/`.
-2. Compute fallback metric overrides via Capsize (or equivalent) for Georgia (Alegreya fallback) and Helvetica Neue (Alegreya Sans fallback).
-3. Add `@font-face` declarations with the local woff2 files and metric-matched fallback `@font-face` blocks.
-4. Add `<link rel="preload" as="font" type="font/woff2" crossorigin>` for the two roman 400 weights (most-used).
-5. Inline the entire `style.css` into a `<style>` block in `<head>`. Delete `style.css`.
-6. Remove the Google Fonts `<link>` from `<head>`.
-7. Generate a 1200×630 OG image as `og.png` (simple title card).
-8. Add `<link rel="canonical">`, `<meta property="og:image">`, `<meta property="og:url">`, and the JSON-LD `Article` block.
+1. ✓ Downloaded four latin-subset woff2 files from the Google Fonts CDN (fetched with a Chrome User-Agent to force woff2 — the default Safari UA returns woff for Alegreya). Placed in `/fonts/`. Total ~92 KB, under half the 200 KB estimate.
+2. ✓ Computed metric overrides with fontkit reading the actual woff2 files. Results:
+   - `Alegreya` vs `Georgia`: size-adjust 92.81%, ascent-override 109.48%, descent-override 37.17%.
+   - `Alegreya Sans` vs `Helvetica Neue`: size-adjust 93.17%, ascent-override 96.60%, descent-override 32.20%.
+3. ✓ Added `@font-face` declarations for the four web fonts plus four fallback declarations (one per style, for both families).
+4. ✓ Added `<link rel="preload" as="font" type="font/woff2" crossorigin>` for the two roman 400 weights.
+5. ✓ Inlined `style.css` into a `<style>` block in `<head>`. Deleted `style.css`.
+6. ✓ Removed the Google Fonts `<link>` and both `preconnect` hints from `<head>`.
+7. ✗ Deferred — OG image skipped per user direction ("no visual for now"). Twitter card downgraded from `summary_large_image` to `summary` since there's no image to show.
+8. ✓ Added `<link rel="canonical">`, `<meta property="og:url">`, `<meta property="article:published_time">`, `<meta name="theme-color">` (light + dark variants), and the JSON-LD `Article` block. `og:image` intentionally omitted.
 
 ---
 
