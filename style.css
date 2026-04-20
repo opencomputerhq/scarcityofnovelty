@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------------
    The Scarcity of Novelty
-   Typography: EB Garamond, set for screen reading.
+   Body: Alegreya. Chrome (dateline, byline, numerals): Alegreya Sans.
    --------------------------------------------------------------- */
 
 :root {
@@ -12,6 +12,9 @@
   --rule:       #cbb999;
   --accent:     #8a3a2a;
   --selection:  #e8d8b4;
+
+  --font-serif: "Alegreya", "Iowan Old Style", "Hoefler Text", "Sitka Text", Georgia, "Times New Roman", serif;
+  --font-sans:  "Alegreya Sans", "Avenir Next", "Optima", "Helvetica Neue", system-ui, sans-serif;
 
   --measure:    40rem;
   --leading:    1.6;
@@ -42,7 +45,7 @@ body {
   background: var(--paper);
   color: var(--ink);
 
-  font-family: "EB Garamond", "Iowan Old Style", "Hoefler Text", "Sitka Text", Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: clamp(1.1rem, 0.95rem + 0.45vw, 1.3rem);
   line-height: var(--leading);
 
@@ -95,14 +98,14 @@ article {
   justify-content: center;
   gap: 0.7em;
   margin: 0 0 2.2rem;
-  font-family: inherit;
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 400;
   font-size: 0.78rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink-soft);
   font-variant-numeric: lining-nums;
-  font-variant-caps: all-small-caps;
 }
 
 .dateline::before,
@@ -117,12 +120,12 @@ article {
 
 .title {
   margin: 0;
-  font-family: inherit;
+  font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(2.6rem, 4.5vw + 1.2rem, 4.4rem);
-  line-height: 1.04;
-  letter-spacing: -0.005em;
+  font-size: clamp(2.4rem, 4vw + 1.1rem, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.012em;
   color: var(--ink);
   text-wrap: balance;
 }
@@ -136,9 +139,12 @@ article {
 }
 
 .byline .name {
-  font-variant-caps: small-caps;
-  letter-spacing: 0.08em;
+  font-family: var(--font-sans);
   font-style: normal;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.85em;
   color: var(--ink);
 }
 
@@ -153,15 +159,17 @@ article {
 
 .part > p + p { margin-top: 1.3em; }
 
-/* Section numeral preceding part i (no heading text, just the mark). */
+/* Section numeral preceding each part. */
 .numeral {
   margin: 0 0 1.2rem;
   text-align: center;
-  font-style: italic;
-  font-size: 0.95rem;
-  letter-spacing: 0.18em;
-  font-variant-caps: all-small-caps;
-  color: var(--ink-faint);
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
 
 /* Heading for part ii. */
@@ -178,32 +186,28 @@ article {
 
 .section-title .numeral {
   display: block;
-  margin: 0 0 0.7rem;
-  font-size: 0.78rem;
+  margin: 0 0 0.9rem;
 }
 
-/* ---------- Drop cap ---------- */
-
-.lead {
-  /* Keep the first line tight against the cap. */
-}
+/* ---------- Drop cap & opening ---------- */
 
 .dropcap {
   float: left;
-  font-family: inherit;
+  font-family: var(--font-serif);
   font-style: normal;
   font-weight: 400;
-  font-size: 4.2em;
+  font-size: 4.4em;
   line-height: 0.82;
   margin: 0.06em 0.08em -0.06em 0;
   color: var(--accent);
 }
 
-/* The text immediately after the drop cap gets small-cap leading.
-   This is the classical "first three words in small caps" treatment. */
-.after-dropcap::first-line {
-  font-variant-caps: small-caps;
-  letter-spacing: 0.04em;
+/* Classical "first phrase in small caps" treatment. Explicit span keeps it
+   deterministic across viewports (vs the old ::first-line approach). */
+.opening {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.06em;
+  font-feature-settings: "smcp" 1, "c2sc" 1;
 }
 
 /* ---------- Ornaments ---------- */
@@ -229,14 +233,7 @@ article {
 
 em { font-style: italic; }
 
-/* a) and b) get small-cap italic treatment so they don't pop visually. */
-.alpha {
-  font-style: italic;
-  font-feature-settings: "lnum" 1;
-}
-
-/* Em dash micro-spacing: the &nbsp;&mdash;&nbsp; in the markup pairs with this
-   to keep dashes from breaking awkwardly across lines while staying open. */
+.alpha { font-style: italic; }
 
 /* ---------- Links ---------- */
 
