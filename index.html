@@ -131,6 +131,14 @@
       --font-serif: "Alegreya", "Alegreya Fallback", Georgia, serif;
       --font-sans:  "Alegreya Sans", "Alegreya Sans Fallback", "Helvetica Neue", Arial, sans-serif;
 
+      /* Type scale — roughly 1.25 ratio from body. Fluid clamps on
+         display + heading + body per impeccable's content-page
+         guidance; meta is a fixed anchor for small chrome. */
+      --text-meta:    0.85rem;
+      --text-body:    clamp(1.1rem, 0.95rem + 0.45vw, 1.3rem);
+      --text-heading: clamp(1.4rem, 1.1rem + 0.6vw, 1.7rem);
+      --text-display: clamp(2.4rem, 4vw + 1.1rem, 4rem);
+
       --measure:    44rem;
       --leading:    1.6;
     }
@@ -161,7 +169,7 @@
       color: var(--ink);
 
       font-family: var(--font-serif);
-      font-size: clamp(1.1rem, 0.95rem + 0.45vw, 1.3rem);
+      font-size: var(--text-body);
       line-height: var(--leading);
 
       font-feature-settings: "kern" 1, "liga" 1, "dlig" 1, "onum" 1;
@@ -212,10 +220,11 @@
       font-family: var(--font-sans);
       font-style: normal;
       font-weight: 400;
-      font-size: 0.78rem;
-      letter-spacing: 0.22em;
+      font-size: var(--text-meta);
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--ink-soft);
+      font-feature-settings: "kern" 1, "lnum" 1;
       font-variant-numeric: lining-nums;
     }
 
@@ -232,7 +241,7 @@
       font-family: var(--font-serif);
       font-style: italic;
       font-weight: 400;
-      font-size: clamp(2.4rem, 4vw + 1.1rem, 4rem);
+      font-size: var(--text-display);
       line-height: 1.06;
       letter-spacing: -0.012em;
       color: var(--ink);
@@ -258,10 +267,11 @@
       font-family: var(--font-sans);
       font-style: normal;
       font-weight: 400;
-      font-size: 0.78rem;
-      letter-spacing: 0.32em;
+      font-size: var(--text-meta);
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--ink-soft);
+      font-feature-settings: "kern" 1;
     }
 
     .section-title {
@@ -269,7 +279,7 @@
       text-align: center;
       font-weight: 400;
       font-style: italic;
-      font-size: clamp(1.4rem, 1.1rem + 0.6vw, 1.7rem);
+      font-size: var(--text-heading);
       line-height: 1.25;
       color: var(--ink);
       text-wrap: balance;
@@ -340,10 +350,11 @@
       margin-top: 2.6em;
       font-family: var(--font-sans);
       font-weight: 400;
-      font-size: 0.78rem;
-      letter-spacing: 0.22em;
+      font-size: var(--text-meta);
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--ink-soft);
+      font-feature-settings: "kern" 1, "lnum" 1;
     }
 
     /* ---------- End-of-text mark ---------- */
@@ -353,7 +364,7 @@
       text-align: center;
       font-family: var(--font-sans);
       font-style: normal;
-      font-size: 1.2rem;
+      font-size: var(--text-body);
       line-height: 1;
       color: var(--ink-faint);
       user-select: none;
@@ -369,8 +380,9 @@
       flex-wrap: wrap;
       gap: 1.6em;
       font-family: var(--font-sans);
-      font-size: 0.85rem;
+      font-size: var(--text-meta);
       color: var(--ink-soft);
+      font-feature-settings: "kern" 1;
     }
 
     .site-footer a {
@@ -406,7 +418,7 @@
 
     @media (max-width: 32rem) {
       body { line-height: 1.5; }
-      .dateline { gap: 0.5em; font-size: 0.72rem; }
+      .dateline { gap: 0.5em; }
       .dateline::before, .dateline::after { flex-basis: 1.5em; }
       .dropcap { font-size: 3.6em; }
       article { padding-inline: 1.2rem; }
