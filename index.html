@@ -32,7 +32,7 @@
   <style>
     /* ---------------------------------------------------------------
        The Scarcity of Novelty
-       Body: Alegreya. Chrome (dateline, byline, numerals): Alegreya Sans.
+       Body: Alegreya. Chrome (dateline, numerals): Alegreya Sans.
        Fonts self-hosted; fallback @font-face blocks carry size-adjust
        and ascent/descent overrides so the fallback glyphs occupy the
        exact same space as the web fonts (zero CLS on font swap).
@@ -227,8 +227,6 @@
       background: var(--rule);
     }
 
-    .dateline .bullet { color: var(--ink-faint); }
-
     .title {
       margin: 0;
       font-family: var(--font-serif);
@@ -241,24 +239,6 @@
       text-wrap: balance;
     }
 
-    .byline {
-      margin: 1.8rem 0 0;
-      font-style: italic;
-      font-size: 0.95rem;
-      color: var(--ink-soft);
-      letter-spacing: 0.01em;
-    }
-
-    .byline .name {
-      font-family: var(--font-sans);
-      font-style: normal;
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-size: 0.85em;
-      color: var(--ink);
-    }
-
     /* ---------- Body ---------- */
 
     .part > p {
@@ -269,6 +249,7 @@
     }
 
     .part > p + p { margin-top: 1.3em; }
+    .part + .part { margin-top: clamp(2.5rem, 5vh, 4rem); }
 
     .numeral {
       margin: 0 0 1.2rem;
@@ -317,25 +298,6 @@
       font-feature-settings: "smcp" 1, "c2sc" 1;
     }
 
-    /* ---------- Ornaments ---------- */
-
-    .ornament {
-      margin: clamp(2.5rem, 5vh, 4rem) 0;
-      text-align: center;
-      font-size: 1.2rem;
-      letter-spacing: 0.6em;
-      color: var(--ink-faint);
-      user-select: none;
-    }
-
-    .endmark {
-      display: inline-block;
-      margin-left: 0.4em;
-      color: var(--ink-faint);
-      font-size: 0.95em;
-      vertical-align: 0.05em;
-    }
-
     /* ---------- Inline details ---------- */
 
     em { font-style: italic; }
@@ -373,6 +335,16 @@
     .colophon { margin-top: 1.3em; }
     .colophon p { margin: 1.3em 0 0; }
 
+    .colophon .signature {
+      margin-top: 2.6em;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
     /* ---------- Small screens ---------- */
 
     @media (max-width: 32rem) {
@@ -390,7 +362,7 @@
       body::before { display: none; }
       article { max-width: 30em; padding: 0; }
       a { color: black; text-decoration-color: #666; }
-      .colophon, .ornament, .endmark { color: #555; }
+      .colophon { color: #555; }
     }
 
     /* ---------- Reduce motion ---------- */
@@ -423,9 +395,8 @@
     <article>
 
       <header class="masthead">
-        <p class="dateline"><span>An essay</span><span class="bullet">&middot;</span><span>April 2026</span></p>
+        <p class="dateline"><span>April 2026</span></p>
         <h1 class="title">The scarcity of&nbsp;novelty</h1>
-        <p class="byline">by <span class="name">Igor Zalutski</span></p>
       </header>
 
       <section class="part" aria-labelledby="part-i">
@@ -448,8 +419,6 @@
         <p>This led me to start experimenting with &ldquo;proof of human authorship&rdquo; myself. For a while I&rsquo;ve been writing long&#8209;form pieces like this in one go, recording the screen as I am typing. It also helps to focus and finish the piece much quicker than I otherwise would because there&rsquo;s simply no room for overthinking every word&nbsp;&mdash; a bit like public speaking. It comes out as it comes out, I just generate the next token as if I was an LLM myself and move on to the next one. But the unintended consequence of this approach was that I could now easily prove that my writing is genuine by sharing a link to the screen recording. And only after writing several pieces like this I realised a deeper implication of all this.</p>
       </section>
 
-      <div class="ornament" role="separator" aria-hidden="true">&#8258;</div>
-
       <section class="part" aria-labelledby="part-ii">
         <h2 class="section-title" id="part-ii">
           <span class="numeral">ii</span>
@@ -462,13 +431,15 @@
 
         <p>Which leads me to believe that there&rsquo;s enormous alpha right now in &ldquo;proof of human authorship&rdquo;, and it is only going to grow in the near term. Simply demonstrating that the post you wrote was in fact hand&#8209;written will go a long way. I also suspect that there&rsquo;s a hard limit on the originality of ideas that can be produced by LLMs, at least in their current form, but many people believe otherwise. Regardless of LLM capability though, people seem to value non&#8209;original ideas created by other humans higher than content that they know is AI&#8209;generated.</p>
 
-        <p>I don&rsquo;t even know how to conclude this; this is I guess a &ldquo;conclusion&rdquo;. Feels incomplete admittedly, perhaps there is some writing technique that I&rsquo;m missing here, idk. What I know is that I started writing this to explore this &ldquo;scarcity of novelty&rdquo; idea and it it now feels much more explored than before. One possible outcome of it was realising half&#8209;way through that its a completely wrong take, which didn&rsquo;t happen.<span class="endmark" aria-hidden="true">&#8258;</span></p>
+        <p>I don&rsquo;t even know how to conclude this; this is I guess a &ldquo;conclusion&rdquo;. Feels incomplete admittedly, perhaps there is some writing technique that I&rsquo;m missing here, idk. What I know is that I started writing this to explore this &ldquo;scarcity of novelty&rdquo; idea and it it now feels much more explored than before. One possible outcome of it was realising half&#8209;way through that its a completely wrong take, which didn&rsquo;t happen.</p>
       </section>
 
       <footer class="colophon">
         <p>I&rsquo;m building <a href="https://opencomputer.dev" rel="noopener">opencomputer.dev</a>&nbsp;&mdash; a sandbox for running AI agents inside&nbsp;it.</p>
 
         <p><a href="https://www.loom.com/share/483786c6856b4552b50569c3374e37d8" rel="noopener">Written by a human</a>.</p>
+
+        <p class="signature">Igor Zalutski</p>
 
       </footer>
 
