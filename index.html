@@ -249,7 +249,8 @@
     }
 
     .part > p + p { margin-top: 1.3em; }
-    .part + .part { margin-top: clamp(2.5rem, 5vh, 4rem); }
+    .part + .part,
+    .colophon + .part { margin-top: clamp(2.5rem, 5vh, 4rem); }
 
     .numeral {
       margin: 0 0 1.2rem;
@@ -345,6 +346,62 @@
       color: var(--ink-soft);
     }
 
+    /* ---------- End-of-text mark ---------- */
+
+    .end-mark {
+      margin: clamp(3rem, 6vh, 4.5rem) 0 0;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-style: normal;
+      font-size: 1.2rem;
+      line-height: 1;
+      color: var(--ink-faint);
+      user-select: none;
+    }
+
+    /* ---------- Site footer ---------- */
+
+    .site-footer {
+      margin-top: clamp(2rem, 4vh, 3rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.6em;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    .site-footer a {
+      color: inherit;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      background-image: none;
+      padding: 0.2em 0.1em;
+    }
+
+    .site-footer a:hover { color: var(--accent); }
+
+    .site-footer svg {
+      width: 1.1em;
+      height: 1.1em;
+      display: block;
+    }
+
+    .site-footer .site-link {
+      text-decoration: underline;
+      text-decoration-color: var(--ink-soft);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+    }
+
+    .site-footer .site-link:hover {
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 1.5px;
+    }
+
     /* ---------- Small screens ---------- */
 
     @media (max-width: 32rem) {
@@ -434,13 +491,35 @@
         <p>I don&rsquo;t even know how to conclude this; this is I guess a &ldquo;conclusion&rdquo;. Feels incomplete admittedly, perhaps there is some writing technique that I&rsquo;m missing here, idk. What I know is that I started writing this to explore this &ldquo;scarcity of novelty&rdquo; idea and it it now feels much more explored than before. One possible outcome of it was realising half&#8209;way through that its a completely wrong take, which didn&rsquo;t happen.</p>
       </section>
 
-      <footer class="colophon">
+      <div class="colophon">
         <p>I&rsquo;m building <a href="https://opencomputer.dev" rel="noopener">opencomputer.dev</a>&nbsp;&mdash; a sandbox for running AI agents inside&nbsp;it.</p>
 
         <p><a href="https://www.loom.com/share/483786c6856b4552b50569c3374e37d8" rel="noopener">Written by a human</a>.</p>
 
         <p class="signature">Igor Zalutski</p>
+      </div>
 
+      <section class="part" aria-labelledby="part-iii">
+        <h2 class="section-title" id="part-iii">
+          <span class="numeral">iii</span>
+          <span class="section-title-text">Postscriptum</span>
+        </h2>
+
+        <p>I&rsquo;m adding this on the following day so it&rsquo;s not on the proof&#8209;of&#8209;authorship video. It felt incomplete and I couldn&rsquo;t stop thinking why. At the same time, if the underlying assumption is true, then incompleteness shouldn&rsquo;t matter. So what&rsquo;s missing? Today I figured: nowhere it spells out clearly what was the point that I was trying to make.</p>
+
+        <p>It goes as follows: for a brief period of time, proof of human authorship alone is both necessary and sufficient to stand out. This is clearly not good writing&nbsp;&mdash; it&rsquo;s just a stream of consiousness, un&#8209;edited, with lots of typos and questionable narrative structure. It&rsquo;s a first draft at best; lots of editing is needed to improve the reader experience. At a minimum, it should be far more concise. And yet if the underlying assumption is correct, then the proof alone makes it good enough despite all other shortcomings.</p>
+      </section>
+
+      <div class="end-mark" role="separator" aria-hidden="true">~</div>
+
+      <footer class="site-footer">
+        <a href="https://x.com/IgorZIJ" rel="noopener" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/izalutski/" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://opencomputer.dev" rel="noopener" class="site-link">opencomputer.dev</a>
       </footer>
 
     </article>
