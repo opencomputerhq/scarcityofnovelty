@@ -29,3 +29,9 @@ I don’t even know how to conclude this; this is I guess a “conclusion”. Fe
 I’m building [opencomputer.dev](http://opencomputer.dev) - a sandbox for running AI agents inside it
 
 [Written by a human](https://www.loom.com/share/483786c6856b4552b50569c3374e37d8)
+
+# Postscriptum
+
+I'm adding this on the following day so it's not on the proof-of-authorship video. It felt incomplete and I couldn't stop thinking why. At the same time, if the underlying assumption is true, then incompleteness shouldn't matter. So what's missing? Today I figured: nowhere it spells out clearly what was the point that I was trying to make.
+
+It goes as follows: for a brief period of time, proof of human authorship alone is both necessary and sufficient to stand out. This is clearly not good writing - it's just a stream of consiousness, un-edited, with lots of typos and questionable narrative structure. It's a first draft at best; lots of editing is needed to improve the reader experience. At a minimum, it should be far more concise. And yet if the underlying assumption is correct, then the proof alone makes it good enough despite all other shortcomings.
