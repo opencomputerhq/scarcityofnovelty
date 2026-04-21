@@ -62,7 +62,7 @@ If a second page is ever added, extraction back to an external file is trivial. 
 
 Three independent metadata additions:
 
-- **Canonical URL** (`<link rel="canonical">`). Cheap insurance — tells crawlers and aggregators which URL is authoritative if the page is ever embedded, archived, or proxied. Just a meta tag pointing at `https://diggerhq.github.io/scarcityofnovelty/`.
+- **Canonical URL** (`<link rel="canonical">`). Cheap insurance — tells crawlers and aggregators which URL is authoritative if the page is ever embedded, archived, or proxied. Just a meta tag pointing at `https://opencomputerhq.github.io/scarcityofnovelty/`.
 - **JSON-LD `Article` schema.** Lets Google show this as a proper article in search results, with author and date pulled from explicit fields rather than inferred. ~12 lines of JSON in a `<script type="application/ld+json">` block.
 - **OG image.** Currently no image appears when the URL is shared on X / LinkedIn / Slack. Plan: a 1200×630 PNG, generated as a clean title card (title set in Alegreya italic on the cream paper background, byline below). Stored at `/og.png`, referenced from `<meta property="og:image">` and the JSON-LD `image` field.
 
